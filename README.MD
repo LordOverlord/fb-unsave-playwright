@@ -57,9 +57,66 @@ python unsave.facebook.py
 
 > 💡 **Note**: If the script stops working after a large number of saved items, make sure the `SAVED_URL` is set to `https://www.facebook.com/saved/?dashboard_section=ALL` instead of the default `referrer=...`. Facebook changes its internal routing dynamically.
 
+## 🛠️ Advanced Usage
+> 🔍 **PWSH Loop**: Use this one liner for pwsh, to run the script until all the saves are unsaved, or until something else happens.
+
+```powershell
+1..5 | ForEach-Object { Write-Host "🔁 Run #$_"; python .\unsave.facebook.py; Start-Sleep -Seconds 120 }
+```
+
+## ✅ Completed Tasks
+
+### 🧠 Core Script
+- [x] Functional Playwright script to unsave Facebook Saved items
+- [x] Handles Netscape-format cookies (e.g., from EditThisCookie)
+- [x] Ignores global "More" button (uses correct per-item menu)
+- [x] Detects and clicks "Unsave" span
+- [x] Uses round-based loop with `max_rounds`
+- [x] Supports updated URL `?dashboard_section=ALL` for better loading
+- [x] Script includes comments for easy understanding
+- [x] No infinite loops (softban protection)
+- [x] Compatible with PowerShell via one-liner loop
+
+### 📦 Packaging & Documentation
+- [x] Clean `requirements.txt`
+- [x] `.gitignore` excludes cookies, virtualenvs, and system files
+- [x] BSD 3-Clause LICENSE with author attribution
+- [x] `README.md` with:
+  - Quick start guide
+  - Advanced tip (repeat if needed)
+  - Disclaimer with softban warning
+  - URL correction note
+
+### 🚀 Repo & Testing
+- [x] GitHub repository created: `fb-unsave-playwright`
+- [x] Initial commit and push completed
+- [x] Markdown formatting verified visually
+
+---
+
+## 🔜 Pending / Future Tasks
+
+### 🧪 Testing
+- [ ] Script tested in fresh virtual environment
+- [ ] Tested on Windows 10 and Linux (Ubuntu)
+
+### 🐳 Dockerization (optional)
+- [ ] Create `Dockerfile`
+- [ ] Create `.dockerignore`
+- [ ] Add Docker usage instructions to README
+
+### 🔧 Script Improvements
+- [ ] Logging to `.log` file per run (e.g., `unsave.log`)
+- [ ] Cumulative unsave counter (persisted across runs)
+- [ ] CLI toggle for headless mode (`--headless`)
+- [ ] Filtering by item type (e.g., reel, post, video)
+- [ ] Dry-run mode: detect items that would be unsaved without clicking
 
 
 ## 🔐 Disclaimer
+
+> 🧠 After fully purging 5000+ items, Facebook's Saved feed may enter a soft-corrupted state where the frontend can't recover. These issues tend to resolve automatically after internal cleanup (may take days or weeks).
+
 
 - This script interacts with your Facebook account using your cookies.
 - Use responsibly. No data is stored or transmitted externally.
