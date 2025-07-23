@@ -1,11 +1,28 @@
 import asyncio
 import json
+import os
 from http.cookiejar import MozillaCookieJar
 from playwright.async_api import async_playwright
+from datetime import datetime
 
+
+timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 NETSCAPE_COOKIES_FILE = "cookies.facebook.txt"   # cookies en formato Netscape
-OUTPUT_FILE = "facebook_saved_links01.txt"
+OUTPUT_FILE = f"facebook_saved_links_{timestamp}.txt"
+# URL to the saved items page
 FACEBOOK_SAVED_URL = "https://www.facebook.com/saved/?referrer=SAVE_DASHBOARD_NAVIGATION_PANEL"
+# Alternate URLS
+# SAVED_URL = "https://www.facebook.com/saved/?cref=28"
+# SAVED_URL = "https://www.facebook.com/saved/?dashboard_section=LINKS"
+# SAVED_URL = "https://www.facebook.com/saved/?dashboard_section=VIDEOS"
+# SAVED_URL = "https://www.facebook.com/saved/?dashboard_section=REELS"
+# SAVED_URL = "https://www.facebook.com/saved/?dashboard_section=PHOTOS"
+# SAVED_URL = "https://www.facebook.com/saved/?dashboard_section=PLACES"
+# SAVED_URL = "https://www.facebook.com/saved/?dashboard_section=PRODUCTS"
+# SAVED_URL = "https://www.facebook.com/saved/?dashboard_section=EVENTS"
+# SAVED_URL = "https://www.facebook.com/saved/?dashboard_section=OFFERS"
+# SAVED_URL = "https://www.facebook.com/saved/?dashboard_section=UNLISTED"
+# SAVED_URL = "https://www.facebook.com/saved/?dashboard_section=ALL"
 
 def convert_netscape_to_playwright(netscape_file):
     jar = MozillaCookieJar()
@@ -29,7 +46,10 @@ async def run():
     cookies = convert_netscape_to_playwright(NETSCAPE_COOKIES_FILE)
 
     async with async_playwright() as p:
-        browser = await p.webkit.launch(headless=False)
+        # Launch the browser with the loaded cookies in this case: Chromium
+        browser = await p.chromium.launch(headless=False)
+        # browser = await p.firefox.launch(headless=False)
+        # browser = await p.webkit.launch(headless=False)
         context = await browser.new_context()
         await context.add_cookies(cookies)
 
@@ -54,7 +74,7 @@ async def run():
             for link in saved_links:
                 f.write(link + "\n")
 
-        print(f"✅ Enlaces guardados en {OUTPUT_FILE} ({len(saved_links)} total)")
+        print(f"✅ Enlaces guardados en {os.path.abspath(OUTPUT_FILE)} ({len(saved_links)} total)")
         await browser.close()
 
 asyncio.run(run())

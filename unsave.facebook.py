@@ -7,7 +7,7 @@ from playwright.async_api import async_playwright
 COOKIES_FILE = "cookies.facebook.txt"
 
 # URL to the saved items page
-SAVED_URL = "https://www.facebook.com/saved/?referrer=SAVE_DASHBOARD_NAVIGATION_PANEL"
+# SAVED_URL = "https://www.facebook.com/saved/?referrer=SAVE_DASHBOARD_NAVIGATION_PANEL"
 # Alternate URLS
 # SAVED_URL = "https://www.facebook.com/saved/?cref=28"
 # SAVED_URL = "https://www.facebook.com/saved/?dashboard_section=LINKS"
@@ -21,7 +21,7 @@ SAVED_URL = "https://www.facebook.com/saved/?referrer=SAVE_DASHBOARD_NAVIGATION_
 # SAVED_URL = "https://www.facebook.com/saved/?dashboard_section=UNLISTED"
 
 #alternative URL
-#SAVED_URL = "https://www.facebook.com/saved/?dashboard_section=ALL"
+SAVED_URL = "https://www.facebook.com/saved/?dashboard_section=ALL"
 
 # Function to convert Netscape format cookies to Playwright format
 def convert_netscape_to_playwright(path):

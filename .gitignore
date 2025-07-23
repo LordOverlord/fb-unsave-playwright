@@ -23,3 +23,8 @@ Thumbs.db
 
 # Cookie/session files
 cookies.facebook.txt
+
+# Output files
+facebook_saved_links_*.txt
+facebook_links_*.csv
+reels.videos.fb*.txt
